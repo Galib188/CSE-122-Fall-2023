@@ -1,1 +1,108 @@
+Ans.1
 
+#include <iostream>
+
+class ManchesterUnited {
+private:
+    int coach;
+    int player[20];
+
+public:
+    ManchesterUnited() : coach(0) {
+        for (int i = 0; i < 20; ++i) {
+            player[i] = 0;
+        }
+    }
+
+    void getData() {
+        // Implement getData as needed
+    }
+
+    ManchesterUnited operator++(int) {
+        ManchesterUnited temp = *this;
+        // Increment both coach and player variables
+        coach++;
+        for (int i = 0; i < 20; ++i) {
+            player[i]++;
+        }
+        return temp;
+    }
+
+    bool operator==(const ManchesterUnited& other) const {
+        // Implement the comparison logic
+        return (coach == other.coach) && (std::equal(std::begin(player), std::end(player), std::begin(other.player)));
+    }
+};
+
+int main() {
+    ManchesterUnited ronaldo, fernandes;
+
+    // Increment ronaldo
+    ronaldo++;
+
+    // Set values for ronaldo and fernandes
+    ronaldo.getData();  // Assuming you have a method to set data
+    fernandes.getData(); // Assuming you have a method to set data
+
+    // Compare before and after incrementing ronaldo
+    if (ronaldo == fernandes) {
+        std::cout << "Before and after incrementing ronaldo, both instances are equal.\n";
+    } else {
+        std::cout << "Before and after incrementing ronaldo, instances are not equal.\n";
+    }
+
+    return 0;
+}
+
+Ans.2
+
+#include <iostream>
+#include <cassert>
+
+class Fraction {
+private:
+    int numerator;
+    int denominator;
+
+public:
+    Fraction(int num, int den) : numerator(num), denominator(den) {
+        assert(denominator != 0 && "Denominator cannot be zero.");
+    }
+
+    void reduce() {
+        // Implement fraction reduction logic
+    }
+
+    std::string to_str() const {
+        return std::to_string(numerator) + "/" + std::to_string(denominator);
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Fraction& fraction) {
+        os << fraction.to_str();
+        return os;
+    }
+
+    Fraction add(const Fraction& other) const {
+        // Implement addition logic
+        int result_num = (numerator * other.denominator) + (other.numerator * denominator);
+        int result_den = denominator * other.denominator;
+
+        Fraction result(result_num, result_den);
+        result.reduce(); // Reduce the result fraction
+        return result;
+    }
+};
+
+int main() {
+    Fraction fraction1(1, 2);
+    Fraction fraction2(3, 4);
+
+    std::cout << "Fraction 1: " << fraction1 << std::endl;
+    std::cout << "Fraction 2: " << fraction2 << std::endl;
+
+    Fraction result = fraction1.add(fraction2);
+
+    std::cout << "Sum: " << result << std::endl;
+
+    return 0;
+}
